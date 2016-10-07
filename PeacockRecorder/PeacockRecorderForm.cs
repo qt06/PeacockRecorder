@@ -26,6 +26,7 @@ namespace PeacockRecorder
         private int _playHandle = 0;
         private int _recHandle = 0;
         private int _encHandle = 0;
+        private bool prepareRecord = false;
         private EncoderLAME lame;
         private EncoderWAV wav;
         private EncoderOGG ogg;
@@ -296,6 +297,10 @@ namespace PeacockRecorder
 
         public void StartRecording()
         {
+            if (this.prepareRecord)
+            {
+                return;
+            }
             if (Bass.BASS_ChannelIsActive(_recHandle) == BASSActive.BASS_ACTIVE_PLAYING)
             {
                 enc.Pause(true);
@@ -308,8 +313,8 @@ namespace PeacockRecorder
             {
                 if (Settings.Default.NotificationSound)
                 {
-
-                    _playSync = new SYNCPROC(ContinueRecordSync);
+                    this.prepareRecord = true;
+                                        _playSync = new SYNCPROC(ContinueRecordSync);
                     this.PlayNotifySound("continue_record.wav", _playSync);
                 }
                 else
@@ -322,6 +327,7 @@ namespace PeacockRecorder
             }
             if (Settings.Default.NotificationSound)
             {
+                this.prepareRecord = true;
                 _playSync = new SYNCPROC(BeginRecordSync);
                 this.PlayNotifySound("begin_record.wav", _playSync);
             }
@@ -457,12 +463,14 @@ namespace PeacockRecorder
         private void BeginRecordSync(int handle, int channel, int data, IntPtr user)
         {
             this._StartRecording();
+            this.prepareRecord = false;
         }
 
         private void ContinueRecordSync(int handle, int channel, int data, IntPtr user)
         {
             enc.Pause(false);
             Bass.BASS_ChannelPlay(_recHandle, false);
+            this.prepareRecord = false;
         }
 
         private void BassPlaySync(int handle, int channel, int data, IntPtr user)
