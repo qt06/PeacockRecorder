@@ -42,3 +42,8 @@
 * alt + N 是否启用提示音效
 * ESC 隐藏到通知区域
 * ALT + F4 退出录音机
+
+
+## 感谢
+
+图标来源： <http://www.nipic.com/show/10389526.html>
