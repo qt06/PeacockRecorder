@@ -78,6 +78,7 @@ namespace PeacockRecorder
             this.BassInit(true);
             this.PlayNotifySound("welcome.wav");
             this.BassRecordInit(true);
+            this.supportCommandLine();
         }
 
         private void Form1_Shown(object sender, EventArgs e)
@@ -598,7 +599,7 @@ namespace PeacockRecorder
         public void initREcordingFormat()
         {
             string _rf = Settings.Default.RecordingFormat;
-            this.RecordingFormat = "mp3";
+            this.RecordingFormat = _rf;
             comboBoxRecordingFormat.SelectedItem = _rf;
         }
 
@@ -689,7 +690,38 @@ namespace PeacockRecorder
                 ZDCloudAPI.Speak(cb.Text);
             }
         }
-
+        public void supportCommandLine()
+        {
+           List<string> args = Environment.GetCommandLineArgs().ToList<string>();
+            if (args.Count <= 1)
+            {
+                return;
+            }
+            bool beginRecord = false;
+            if (args.Contains("sr") || args.Contains("startrecording") || args.Contains("开始录音"))
+            {
+                beginRecord = true;
+            }
+            string fmt = "";
+            foreach (var item in args)
+            {
+                if (item == "mp3" || item == "wav" || item == "wma" || item == "ogg")
+                {
+                    fmt = item;
+                    args.Remove(item);
+                    break;
+                }
+            }
+            if (!string.IsNullOrEmpty(fmt))
+            {
+                this.RecordingFormat = fmt;
+                comboBoxRecordingFormat.SelectedItem = fmt;
+            }
+            if (beginRecord)
+            {
+                this.buttonStartRecording_Click(null, null);
+            }
+        }
 
 
     }
