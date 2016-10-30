@@ -61,6 +61,7 @@
             // 
             // buttonStopRecord
             // 
+            this.buttonStopRecord.Enabled = false;
             this.buttonStopRecord.Location = new System.Drawing.Point(111, 281);
             this.buttonStopRecord.Name = "buttonStopRecord";
             this.buttonStopRecord.Size = new System.Drawing.Size(75, 23);
@@ -71,6 +72,7 @@
             // 
             // buttonPlay
             // 
+            this.buttonPlay.Enabled = false;
             this.buttonPlay.Location = new System.Drawing.Point(201, 281);
             this.buttonPlay.Name = "buttonPlay";
             this.buttonPlay.Size = new System.Drawing.Size(75, 23);
@@ -81,6 +83,7 @@
             // 
             // buttonStop
             // 
+            this.buttonStop.Enabled = false;
             this.buttonStop.Location = new System.Drawing.Point(294, 281);
             this.buttonStop.Name = "buttonStop";
             this.buttonStop.Size = new System.Drawing.Size(75, 23);

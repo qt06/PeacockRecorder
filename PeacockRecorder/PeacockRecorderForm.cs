@@ -16,6 +16,7 @@ using Un4seen.Bass.AddOn.Enc;
 using Un4seen.Bass.AddOn.Tags;
 using ZDCloudAPISharp;
 using PeacockRecorder.Properties;
+
 namespace PeacockRecorder
 {
     public partial class PeacockRecorderForm : Form
@@ -40,6 +41,7 @@ namespace PeacockRecorder
         private int OutputDevice = -1;
         private int CurrentOutputDevice = 0;
         private bool canSpeak = false;
+
         public PeacockRecorderForm()
         {
             InitializeComponent();
@@ -49,6 +51,9 @@ namespace PeacockRecorder
         {
             string appkey = "81c69df243";
             string seckey = "3d98555aac";
+            if (File.Exists(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86), "zdsr\\common\\bin\\ZDCloudAPI.dll")))
+            {
+                
             int rs = ZDCloudAPI.Initial(appkey, seckey, new ZDCloudAPI.ZDCloudAPICallBack((int t) =>
             {
                 if (t == 1) Application.Exit();
@@ -59,6 +64,7 @@ namespace PeacockRecorder
                 this.canSpeak = false;
                 //MessageBox.Show("错误代码：" + rs.ToString(), "错误");
                 //Application.Exit();
+            }
             }
             string mwtitle = "";
             if (File.Exists(Application.StartupPath + "\\rn.txt"))
@@ -103,6 +109,7 @@ namespace PeacockRecorder
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             this.UnregHotKey();
+            this.Hide();
             if (this.canSpeak) ZDCloudAPI.UnInitial();
             if (Settings.Default.NotificationSound)
             {
@@ -195,8 +202,8 @@ namespace PeacockRecorder
             this.StartRecording();
         }
 
-        private void buttonStopRecording_Click(object sender, EventArgs e)
-        {
+                                    private void buttonStopRecording_Click(object sender, EventArgs e)
+        {               
             this.StopRecording();
             this.StopPlaying();
         }
@@ -326,6 +333,7 @@ namespace PeacockRecorder
                 this.buttonStartRecord.Text = "暂停录音(&R)";
                 return;
             }
+            this.StopPlaying();
             if (Settings.Default.NotificationSound)
             {
                 this.prepareRecord = true;
@@ -336,6 +344,9 @@ namespace PeacockRecorder
             {
                 this._StartRecording();
             }
+            this.buttonStopRecord.Enabled = true;
+            this.buttonPlay.Enabled = false;
+            this.buttonStop.Enabled = false;
         }
 
         public void _StartRecording()
@@ -419,11 +430,18 @@ namespace PeacockRecorder
                 enc = null;
                 this.PlayNotifySound("end_record.wav");
                 this.buttonStartRecord.Text = "开始录音(&R)";
+                this.buttonStopRecord.Enabled = false;
+                this.buttonPlay.Enabled = true;
+                //this.buttonStop.Enabled = true;
             }
         }
 
         public void StartPlaying()
         {
+            if (this.prepareRecord || Bass.BASS_ChannelIsActive(_recHandle) == BASSActive.BASS_ACTIVE_PLAYING || Bass.BASS_ChannelIsActive(_recHandle) == BASSActive.BASS_ACTIVE_PAUSED)
+            {
+                return;
+            }
             if (Bass.BASS_ChannelIsActive(_playHandle) == BASSActive.BASS_ACTIVE_PLAYING)
             {
                 Bass.BASS_ChannelPause(_playHandle);
@@ -443,6 +461,7 @@ namespace PeacockRecorder
             Bass.BASS_ChannelSetSync(_playHandle, BASSSync.BASS_SYNC_ONETIME | BASSSync.BASS_SYNC_END, 0, _playSync, this.Handle);
             Bass.BASS_ChannelPlay(_playHandle, false);
             if (_playHandle != 0) this.buttonPlay.Text = "暂停播放(&P)";
+            this.buttonStop.Enabled = true;
         }
 
         public void StopPlaying()
@@ -453,6 +472,7 @@ namespace PeacockRecorder
                 Bass.BASS_ChannelStop(_playHandle);
             }
             this.buttonPlay.Text = "开始播放(&P)";
+            this.buttonStop.Enabled = false;
         }
 
         // the recording callback
@@ -508,7 +528,7 @@ namespace PeacockRecorder
             {
                 this.CurrentOutputDevice = this.OutputDevice;
                 Bass.BASS_Free();
-                if (!Bass.BASS_Init(this.OutputDevice, 44100, BASSInit.BASS_DEVICE_DEFAULT, this.Handle)) MessageBox.Show("Bass_Init error!");
+                if (!Bass.BASS_Init(this.CurrentOutputDevice, 44100, BASSInit.BASS_DEVICE_DEFAULT, this.Handle)) MessageBox.Show("Bass_Init error!");
             }
         }
 
