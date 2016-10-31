@@ -89,10 +89,11 @@ namespace PeacockRecorder
 
         private void Form1_Shown(object sender, EventArgs e)
         {
-            bool reghotkeysuccess = this.RegHotKey();
+            string hrs;
+                        bool reghotkeysuccess = this.RegHotKey( out hrs);
             if (!reghotkeysuccess)
             {
-                MessageBox.Show("热键注册失败可能是被其他程序占用，这会导致全局热键失效。", "热键注册失败", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("热键注册失败可能是被其他程序占用，这会导致全局热键失效。请检查下列热键： " + hrs, "热键注册失败", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             bool starthide = Settings.Default.StartHide;
             if (starthide)
@@ -623,19 +624,65 @@ namespace PeacockRecorder
             comboBoxRecordingFormat.SelectedItem = _rf;
         }
 
-        public bool RegHotKey()
+        public bool RegHotKey(out string rs)
         {
+            string tmp = "";
             bool r = HotKey.RegisterHotKey(this.Handle, 6768001, HotKey.KeyModifiers.Control | HotKey.KeyModifiers.Shift, Keys.R);
+            if (!r)
+            {
+                tmp += "Ctrl + Shift + R, ";
+            }
             bool s = HotKey.RegisterHotKey(this.Handle, 6768002, HotKey.KeyModifiers.Control | HotKey.KeyModifiers.Shift, Keys.S);
+            if (!s)
+            {
+                tmp += "Ctrl + Shift + S, ";
+            }
             bool p = HotKey.RegisterHotKey(this.Handle, 6768003, HotKey.KeyModifiers.Control | HotKey.KeyModifiers.Shift, Keys.P);
+            if (!p)
+            {
+                tmp += "Ctrl + Shift + P, ";
+            }
             bool f = HotKey.RegisterHotKey(this.Handle, 6768004, HotKey.KeyModifiers.Control | HotKey.KeyModifiers.Shift, Keys.F);
+            if (!f)
+            {
+                tmp += "Ctrl + Shift + F, ";
+            }
             bool i = HotKey.RegisterHotKey(this.Handle, 6768005, HotKey.KeyModifiers.Control | HotKey.KeyModifiers.Shift, Keys.I);
+            if (!i)
+            {
+                tmp += "Ctrl + Shift + I, ";
+            }
             bool d = HotKey.RegisterHotKey(this.Handle, 6768006, HotKey.KeyModifiers.Control | HotKey.KeyModifiers.Shift, Keys.D);
+            if (!d)
+            {
+                tmp += "Ctrl + Shift + D, ";
+            }
             bool j = HotKey.RegisterHotKey(this.Handle, 6768007, HotKey.KeyModifiers.Control | HotKey.KeyModifiers.Shift, Keys.OemOpenBrackets);
+            if (!j)
+            {
+                tmp += "Ctrl + Shift + [, ";
+            }
             bool t = HotKey.RegisterHotKey(this.Handle, 6768008, HotKey.KeyModifiers.Control | HotKey.KeyModifiers.Shift, Keys.OemCloseBrackets);
+            if (!t)
+            {
+                tmp += "Ctrl + Shift + ], ";
+            }
             bool o = HotKey.RegisterHotKey(this.Handle, 6768009, HotKey.KeyModifiers.Control | HotKey.KeyModifiers.Shift, Keys.O);
-            bool h = HotKey.RegisterHotKey(this.Handle, 6768010, HotKey.KeyModifiers.Control | HotKey.KeyModifiers.Shift, Keys.H);
+            if (!o)
+            {
+                tmp += "Ctrl + Shift + O, ";
+            }
+                        bool h = HotKey.RegisterHotKey(this.Handle, 6768010, HotKey.KeyModifiers.Control | HotKey.KeyModifiers.Shift, Keys.H);
+            if (!h)
+            {
+                tmp += "Ctrl + Shift + H, ";
+            }
             bool q = HotKey.RegisterHotKey(this.Handle, 6768100, HotKey.KeyModifiers.Control | HotKey.KeyModifiers.Shift, Keys.Q);
+            if (!q)
+            {
+                tmp += "Ctrl + Shift + Q";
+            }
+            rs = tmp;
             return (r && s && p && f && i && d && t && j && o && h && q) ? true : false;
         }
 
@@ -677,8 +724,7 @@ namespace PeacockRecorder
 
         public void DeleteRecFile()
         {
-            BASSActive status = Bass.BASS_ChannelIsActive(_recHandle);
-            if (status == BASSActive.BASS_ACTIVE_PLAYING)
+            if (this.prepareRecord || Bass.BASS_ChannelIsActive(_recHandle) == BASSActive.BASS_ACTIVE_PLAYING || Bass.BASS_ChannelIsActive(_recHandle) == BASSActive.BASS_ACTIVE_PAUSED)
             {
                 return;
             }
@@ -691,12 +737,18 @@ namespace PeacockRecorder
                 Bass.BASS_StreamFree(_playHandle);
                 enc = null;
                 File.Delete(RecordingFileName);
+                this.buttonPlay.Enabled = false;
+                this.buttonStop.Enabled = false;
             }
         }
 
 
         public void changeDevice(ComboBox cb)
         {
+            if (this.prepareRecord || Bass.BASS_ChannelIsActive(_recHandle) == BASSActive.BASS_ACTIVE_PLAYING || Bass.BASS_ChannelIsActive(_recHandle) == BASSActive.BASS_ACTIVE_PAUSED)
+            {
+                return;
+            }
             int index = cb.SelectedIndex + 1;
             int cnt = cb.Items.Count;
             if (index >= cnt)
