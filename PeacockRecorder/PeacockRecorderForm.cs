@@ -219,7 +219,7 @@ namespace PeacockRecorder
             this.StopPlaying();
         }
 
-        private void buttonSavePath_Click_1(object sender, EventArgs e)
+        private void buttonSavePath_Click(object sender, EventArgs e)
         {
             FolderBrowserDialog fb = new FolderBrowserDialog();
             fb.Description = "请选择录音文件的保存位置";
@@ -228,6 +228,7 @@ namespace PeacockRecorder
                 string path = fb.SelectedPath;
                 if (!Directory.Exists(path)) Directory.CreateDirectory(path);
                 textBoxSavePath.Text = path;
+                this.SavePath = path;
                 Settings.Default.Savepath = path;
                 Settings.Default.Save();
             }
@@ -739,7 +740,7 @@ namespace PeacockRecorder
                 File.Delete(RecordingFileName);
                 this.buttonPlay.Enabled = false;
                 this.buttonStop.Enabled = false;
-            }
+            }   
         }
 
 
@@ -793,6 +794,11 @@ namespace PeacockRecorder
             {
                 this.buttonStartRecording_Click(null, null);
             }
+        }
+
+        private void buttonHelp_Click(object sender, EventArgs e)
+        {
+            Process.Start(Path.Combine(Application.StartupPath, "使用说明.txt"));
         }
 
 

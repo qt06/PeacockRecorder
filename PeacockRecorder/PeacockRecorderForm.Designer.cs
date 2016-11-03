@@ -47,13 +47,14 @@
             this.comboBoxRecordingFormat = new System.Windows.Forms.ComboBox();
             this.checkBoxEnableNotificationSound = new System.Windows.Forms.CheckBox();
             this.labelSavePath = new System.Windows.Forms.Label();
+            this.buttonHelp = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // buttonStartRecord
             // 
-            this.buttonStartRecord.Location = new System.Drawing.Point(31, 281);
+            this.buttonStartRecord.Location = new System.Drawing.Point(44, 309);
             this.buttonStartRecord.Name = "buttonStartRecord";
-            this.buttonStartRecord.Size = new System.Drawing.Size(75, 23);
+            this.buttonStartRecord.Size = new System.Drawing.Size(84, 23);
             this.buttonStartRecord.TabIndex = 8;
             this.buttonStartRecord.Text = "开始录音(&R)";
             this.buttonStartRecord.UseVisualStyleBackColor = true;
@@ -62,9 +63,9 @@
             // buttonStopRecord
             // 
             this.buttonStopRecord.Enabled = false;
-            this.buttonStopRecord.Location = new System.Drawing.Point(111, 281);
+            this.buttonStopRecord.Location = new System.Drawing.Point(144, 309);
             this.buttonStopRecord.Name = "buttonStopRecord";
-            this.buttonStopRecord.Size = new System.Drawing.Size(75, 23);
+            this.buttonStopRecord.Size = new System.Drawing.Size(84, 23);
             this.buttonStopRecord.TabIndex = 9;
             this.buttonStopRecord.Text = "停止录音(&S)";
             this.buttonStopRecord.UseVisualStyleBackColor = true;
@@ -73,9 +74,9 @@
             // buttonPlay
             // 
             this.buttonPlay.Enabled = false;
-            this.buttonPlay.Location = new System.Drawing.Point(201, 281);
+            this.buttonPlay.Location = new System.Drawing.Point(239, 309);
             this.buttonPlay.Name = "buttonPlay";
-            this.buttonPlay.Size = new System.Drawing.Size(75, 23);
+            this.buttonPlay.Size = new System.Drawing.Size(84, 23);
             this.buttonPlay.TabIndex = 10;
             this.buttonPlay.Text = "开始播放(&P)";
             this.buttonPlay.UseVisualStyleBackColor = true;
@@ -84,9 +85,9 @@
             // buttonStop
             // 
             this.buttonStop.Enabled = false;
-            this.buttonStop.Location = new System.Drawing.Point(294, 281);
+            this.buttonStop.Location = new System.Drawing.Point(332, 309);
             this.buttonStop.Name = "buttonStop";
-            this.buttonStop.Size = new System.Drawing.Size(75, 23);
+            this.buttonStop.Size = new System.Drawing.Size(84, 23);
             this.buttonStop.TabIndex = 11;
             this.buttonStop.Text = "停止播放";
             this.buttonStop.UseVisualStyleBackColor = true;
@@ -95,7 +96,7 @@
             // labelInputDevice
             // 
             this.labelInputDevice.AutoSize = true;
-            this.labelInputDevice.Location = new System.Drawing.Point(10, 30);
+            this.labelInputDevice.Location = new System.Drawing.Point(12, 58);
             this.labelInputDevice.Name = "labelInputDevice";
             this.labelInputDevice.Size = new System.Drawing.Size(53, 12);
             this.labelInputDevice.TabIndex = 0;
@@ -106,16 +107,16 @@
             this.comboBoxInputDevice.AccessibleName = "输入设备";
             this.comboBoxInputDevice.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxInputDevice.FormattingEnabled = true;
-            this.comboBoxInputDevice.Location = new System.Drawing.Point(113, 30);
+            this.comboBoxInputDevice.Location = new System.Drawing.Point(115, 58);
             this.comboBoxInputDevice.Name = "comboBoxInputDevice";
-            this.comboBoxInputDevice.Size = new System.Drawing.Size(272, 20);
+            this.comboBoxInputDevice.Size = new System.Drawing.Size(301, 20);
             this.comboBoxInputDevice.TabIndex = 0;
             this.comboBoxInputDevice.SelectedIndexChanged += new System.EventHandler(this.comboBoxInputDevice_SelectedIndexChanged);
             // 
             // labelOutputDevice
             // 
             this.labelOutputDevice.AutoSize = true;
-            this.labelOutputDevice.Location = new System.Drawing.Point(10, 67);
+            this.labelOutputDevice.Location = new System.Drawing.Point(12, 95);
             this.labelOutputDevice.Name = "labelOutputDevice";
             this.labelOutputDevice.Size = new System.Drawing.Size(53, 12);
             this.labelOutputDevice.TabIndex = 1;
@@ -126,9 +127,9 @@
             this.comboBoxOutputDevice.AccessibleName = "输出设备";
             this.comboBoxOutputDevice.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxOutputDevice.FormattingEnabled = true;
-            this.comboBoxOutputDevice.Location = new System.Drawing.Point(113, 67);
+            this.comboBoxOutputDevice.Location = new System.Drawing.Point(115, 95);
             this.comboBoxOutputDevice.Name = "comboBoxOutputDevice";
-            this.comboBoxOutputDevice.Size = new System.Drawing.Size(272, 20);
+            this.comboBoxOutputDevice.Size = new System.Drawing.Size(301, 20);
             this.comboBoxOutputDevice.TabIndex = 1;
             this.comboBoxOutputDevice.SelectedIndexChanged += new System.EventHandler(this.comboBoxOutputDevice_SelectedIndexChanged);
             // 
@@ -146,7 +147,7 @@
             this.checkBoxStartHide.AutoSize = true;
             this.checkBoxStartHide.Checked = global::PeacockRecorder.Properties.Settings.Default.StartHide;
             this.checkBoxStartHide.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::PeacockRecorder.Properties.Settings.Default, "StartHide", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.checkBoxStartHide.Location = new System.Drawing.Point(113, 143);
+            this.checkBoxStartHide.Location = new System.Drawing.Point(115, 171);
             this.checkBoxStartHide.Name = "checkBoxStartHide";
             this.checkBoxStartHide.Size = new System.Drawing.Size(138, 16);
             this.checkBoxStartHide.TabIndex = 3;
@@ -156,7 +157,7 @@
             // 
             // buttonOpenRecordingFolder
             // 
-            this.buttonOpenRecordingFolder.Location = new System.Drawing.Point(113, 225);
+            this.buttonOpenRecordingFolder.Location = new System.Drawing.Point(115, 253);
             this.buttonOpenRecordingFolder.Name = "buttonOpenRecordingFolder";
             this.buttonOpenRecordingFolder.Size = new System.Drawing.Size(130, 23);
             this.buttonOpenRecordingFolder.TabIndex = 7;
@@ -166,28 +167,28 @@
             // 
             // buttonBrowseSavepath
             // 
-            this.buttonBrowseSavepath.Location = new System.Drawing.Point(315, 183);
+            this.buttonBrowseSavepath.Location = new System.Drawing.Point(349, 213);
             this.buttonBrowseSavepath.Name = "buttonBrowseSavepath";
             this.buttonBrowseSavepath.Size = new System.Drawing.Size(67, 23);
             this.buttonBrowseSavepath.TabIndex = 6;
             this.buttonBrowseSavepath.Text = "浏览(&B)";
             this.buttonBrowseSavepath.UseVisualStyleBackColor = true;
-            this.buttonBrowseSavepath.Click += new System.EventHandler(this.buttonSavePath_Click_1);
+            this.buttonBrowseSavepath.Click += new System.EventHandler(this.buttonSavePath_Click);
             // 
             // textBoxSavePath
             // 
             this.textBoxSavePath.AccessibleName = "录音文件保存在";
-            this.textBoxSavePath.Location = new System.Drawing.Point(113, 185);
+            this.textBoxSavePath.Location = new System.Drawing.Point(115, 213);
             this.textBoxSavePath.Name = "textBoxSavePath";
             this.textBoxSavePath.ReadOnly = true;
-            this.textBoxSavePath.Size = new System.Drawing.Size(200, 21);
+            this.textBoxSavePath.Size = new System.Drawing.Size(228, 21);
             this.textBoxSavePath.TabIndex = 5;
             this.textBoxSavePath.WordWrap = false;
             // 
             // labelRecordingFormat
             // 
             this.labelRecordingFormat.AutoSize = true;
-            this.labelRecordingFormat.Location = new System.Drawing.Point(10, 103);
+            this.labelRecordingFormat.Location = new System.Drawing.Point(12, 131);
             this.labelRecordingFormat.Name = "labelRecordingFormat";
             this.labelRecordingFormat.Size = new System.Drawing.Size(53, 12);
             this.labelRecordingFormat.TabIndex = 2;
@@ -203,9 +204,9 @@
             "wav",
             "wma",
             "ogg"});
-            this.comboBoxRecordingFormat.Location = new System.Drawing.Point(113, 103);
+            this.comboBoxRecordingFormat.Location = new System.Drawing.Point(115, 131);
             this.comboBoxRecordingFormat.Name = "comboBoxRecordingFormat";
-            this.comboBoxRecordingFormat.Size = new System.Drawing.Size(272, 20);
+            this.comboBoxRecordingFormat.Size = new System.Drawing.Size(301, 20);
             this.comboBoxRecordingFormat.TabIndex = 2;
             this.comboBoxRecordingFormat.SelectedIndexChanged += new System.EventHandler(this.comboBoxRecordingFormat_SelectedIndexChanged);
             // 
@@ -215,7 +216,7 @@
             this.checkBoxEnableNotificationSound.Checked = global::PeacockRecorder.Properties.Settings.Default.NotificationSound;
             this.checkBoxEnableNotificationSound.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxEnableNotificationSound.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::PeacockRecorder.Properties.Settings.Default, "NotificationSound", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.checkBoxEnableNotificationSound.Location = new System.Drawing.Point(271, 143);
+            this.checkBoxEnableNotificationSound.Location = new System.Drawing.Point(273, 171);
             this.checkBoxEnableNotificationSound.Name = "checkBoxEnableNotificationSound";
             this.checkBoxEnableNotificationSound.Size = new System.Drawing.Size(114, 16);
             this.checkBoxEnableNotificationSound.TabIndex = 4;
@@ -226,17 +227,28 @@
             // labelSavePath
             // 
             this.labelSavePath.AutoSize = true;
-            this.labelSavePath.Location = new System.Drawing.Point(10, 185);
+            this.labelSavePath.Location = new System.Drawing.Point(12, 213);
             this.labelSavePath.Name = "labelSavePath";
             this.labelSavePath.Size = new System.Drawing.Size(89, 12);
             this.labelSavePath.TabIndex = 5;
             this.labelSavePath.Text = "录音文件保存在";
+            // 
+            // buttonHelp
+            // 
+            this.buttonHelp.Location = new System.Drawing.Point(113, 12);
+            this.buttonHelp.Name = "buttonHelp";
+            this.buttonHelp.Size = new System.Drawing.Size(121, 32);
+            this.buttonHelp.TabIndex = 12;
+            this.buttonHelp.Text = "查看帮助";
+            this.buttonHelp.UseVisualStyleBackColor = true;
+            this.buttonHelp.Click += new System.EventHandler(this.buttonHelp_Click);
             // 
             // PeacockRecorderForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 561);
+            this.Controls.Add(this.buttonHelp);
             this.Controls.Add(this.buttonOpenRecordingFolder);
             this.Controls.Add(this.labelSavePath);
             this.Controls.Add(this.buttonBrowseSavepath);
@@ -283,6 +295,7 @@
         private System.Windows.Forms.CheckBox checkBoxEnableNotificationSound;
         private System.Windows.Forms.Button buttonOpenRecordingFolder;
         private System.Windows.Forms.Label labelSavePath;
+        private System.Windows.Forms.Button buttonHelp;
     }
 }
 
